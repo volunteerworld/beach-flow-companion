@@ -17,13 +17,25 @@ class PdoBackend extends \Neos\Cache\Backend\PdoBackend
     protected $backendOptions;
 
     /**
+     * @Flow\InjectConfiguration(path="persistence.backendOptions.pdoCacheBackendOptions", package="Neos.Flow")
+     * @var array
+     */
+    protected $pdoCacheBackendOptions = array();
+
+    /**
      *
      */
     public function initializeObject()
     {
-        $this->dataSourceName = str_replace('pdo_','', $this->backendOptions['driver']) . ':host=' . $this->backendOptions['host'] . ';dbname=' . $this->backendOptions['dbname'];
-        $this->username = $this->backendOptions['user'];
-        $this->password = $this->backendOptions['password'];
+        if(empty($pdoCacheBackendOptions)){
+            $this->dataSourceName = str_replace('pdo_','', $this->backendOptions['driver']) . ':host=' . $this->backendOptions['host'] . ';dbname=' . $this->backendOptions['dbname'];
+            $this->username = $this->backendOptions['user'];
+            $this->password = $this->backendOptions['password'];
+        }else{
+            $this->dataSourceName = str_replace('pdo_','', $this->pdoCacheBackendOptions['driver']) . ':host=' . $this->pdoCacheBackendOptions['host'] . ';dbname=' . $this->pdoCacheBackendOptions['dbname'];
+            $this->username = $this->pdoCacheBackendOptions['user'];
+            $this->password = $this->pdoCacheBackendOptions['password'];
+        }
         parent::initializeObject();
     }
 
