@@ -27,14 +27,14 @@ class PdoBackend extends \Neos\Cache\Backend\PdoBackend
      */
     public function initializeObject()
     {
-        if(empty($pdoCacheBackendOptions)){
-            $this->dataSourceName = str_replace('pdo_','', $this->backendOptions['driver']) . ':host=' . $this->backendOptions['host'] . ';dbname=' . $this->backendOptions['dbname'];
-            $this->username = $this->backendOptions['user'];
-            $this->password = $this->backendOptions['password'];
-        }else{
+        if(!empty($pdoCacheBackendOptions)){
             $this->dataSourceName = str_replace('pdo_','', $this->pdoCacheBackendOptions['driver']) . ':host=' . $this->pdoCacheBackendOptions['host'] . ';dbname=' . $this->pdoCacheBackendOptions['dbname'];
             $this->username = $this->pdoCacheBackendOptions['user'];
             $this->password = $this->pdoCacheBackendOptions['password'];
+        }else{
+            $this->dataSourceName = str_replace('pdo_','', $this->backendOptions['driver']) . ':host=' . $this->backendOptions['host'] . ';dbname=' . $this->backendOptions['dbname'];
+            $this->username = $this->backendOptions['user'];
+            $this->password = $this->backendOptions['password'];
         }
         parent::initializeObject();
     }
