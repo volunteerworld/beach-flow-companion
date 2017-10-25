@@ -20,7 +20,7 @@ class PdoBackend extends \Neos\Cache\Backend\PdoBackend
      * @Flow\InjectConfiguration(path="persistence.pdoCacheBackendOptions", package="Neos.Flow")
      * @var array
      */
-    protected $pdoCacheBackendOptions = array();
+    protected $pdoCacheBackendOptions;
 
     /**
      *
